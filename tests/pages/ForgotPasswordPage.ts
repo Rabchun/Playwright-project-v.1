@@ -10,8 +10,8 @@ export class ForgotPasswordPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.emailInput = page.getByPlaceholder('Email');
-    this.submitButton = page.getByRole('button', { name: /reset password/i });
+    this.emailInput = page.locator('input[type="email"]');
+    this.submitButton = page.getByRole('button', { name: 'Send Recovery Link' });
     this.successMessage = page.locator('[data-test="success-message"]');
     this.errorMessage = page.locator('[data-test="error-message"]');
     this.backToLoginLink = page.getByRole('link', { name: /sign in/i });
