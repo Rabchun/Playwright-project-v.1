@@ -1,0 +1,22 @@
+{
+  "name": "https---github.com-rabchun-playwright-project-v.1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rabchun/https---github.com-Rabchun-playwright-project-v.1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rabchun/https---github.com-Rabchun-playwright-project-v.1/issues"
+  },
+  "homepage": "https://github.com/Rabchun/https---github.com-Rabchun-playwright-project-v.1#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.0"
+  }
+}
