@@ -1,8 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { RegisterPage } from '../pages/RegisterPage';
 
 test.describe('Registration Page', () => {
-  let registeredEmail: string; 
+  let registeredEmail: string;
 
   test('Register new user successfully', async ({ page }) => {
     const register = new RegisterPage(page);
@@ -19,7 +19,6 @@ test.describe('Registration Page', () => {
     await register.submit();
     await register.assertRegistrationSuccess();
 
-
     registeredEmail = register.generatedEmail;
     console.log('Registered user email:', registeredEmail);
   });
@@ -33,7 +32,7 @@ test.describe('Registration Page', () => {
       'TestLast',
       'TestCompany',
       '323232323',
-      '1' 
+      '1'
     );
 
     await register.submit();
@@ -52,7 +51,7 @@ test.describe('Registration Page', () => {
       'ValidPass123!'
     );
 
-    
+    // Використовуємо email з попереднього тесту
     await register.emailInput.fill(registeredEmail);
 
     await register.submit();

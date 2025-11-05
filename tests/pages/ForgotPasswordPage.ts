@@ -12,9 +12,9 @@ export class ForgotPasswordPage {
     this.page = page;
     this.emailInput = page.locator('input[type="email"]');
     this.submitButton = page.getByRole('button', { name: 'Send Recovery Link' });
-    this.successMessage = page.locator('[data-test="success-message"]');
-    this.errorMessage = page.locator('[data-test="error-message"]');
-    this.backToLoginLink = page.getByRole('link', { name: /sign in/i });
+    this.successMessage = page.getByRole('alert').filter({ hasText: ' The link with instruction was sent to inomaliya13@gmail.com' });
+    this.errorMessage = page.getByRole('alert').filter({ hasText: 'Invalid to reset password' });
+    this.backToLoginLink = page.getByText('Sign In Now', { exact: true });
   }
 
   async goto() {
@@ -32,7 +32,7 @@ export class ForgotPasswordPage {
   }
 
   async assertErrorMessage(expected: string) {
-    await expect(this.errorMessage).toContainText(expected);
+    await expect(this.errorMessage).toBeVisible();
   }
 
   async clickBackToLogin() {

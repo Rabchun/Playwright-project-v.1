@@ -14,7 +14,7 @@ export class RegisterPage {
   readonly successMessage;
   readonly errorMessage;
 
-   public generatedEmail: string = '';
+  public generatedEmail: string = '';
 
   constructor(page: Page) {
     this.page = page;
@@ -27,8 +27,8 @@ export class RegisterPage {
     this.emailInput = page.locator('app-input[placeholder="Email"] input');
     this.passwordInput = page.locator('input[type="password"]');
     this.signUpButton = page.getByRole('button', { name: 'Sign Up', exact: true });
-    this.successMessage = page.locator('[data-test="success-message"]');
-    this.errorMessage = page.locator('[data-test="error-message"]');
+    this.successMessage = page.getByRole('alert');
+    this.errorMessage = page.getByRole('alert').filter({ hasText: 'Invalid to reset password' });
   }
 
   async goto() {
@@ -41,9 +41,10 @@ export class RegisterPage {
     lastName: string,
     companyName: string,
     phone: string,
-    password: string
+    password: string,
+    email?: string
   ) {
-    this.generatedEmail = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`;
+    this.generatedEmail = email ?? `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`;
 
     await expect(this.firstNameInput).toBeVisible({ timeout: 10000 });
     await this.firstNameInput.fill(firstName);
@@ -71,7 +72,6 @@ export class RegisterPage {
   async selectFirstIndustry() {
     await expect(this.industryDropdown).toBeVisible({ timeout: 10000 });
     await this.industryDropdown.click();
-
     const option = this.page.locator('.ng-dropdown-panel .ng-option').first();
     await expect(option).toBeVisible({ timeout: 10000 });
     await option.click();
@@ -80,7 +80,6 @@ export class RegisterPage {
   async selectPhonePrefixByValue() {
     await expect(this.selectPhonePrefix).toBeVisible({ timeout: 10000 });
     await this.selectPhonePrefix.click();
-
     const option = this.page.locator('.ng-dropdown-panel .ng-option').first();
     await expect(option).toBeVisible({ timeout: 10000 });
     await option.click();
@@ -100,4 +99,3 @@ export class RegisterPage {
     await expect(this.errorMessage).toContainText(expectedText, { timeout: 10000 });
   }
 }
-

@@ -6,7 +6,7 @@ test.describe('Login Page', () => {
     const login = new LoginPage(page);
     await login.goto();
     await login.login('valid_user@test.com', 'StrongPass123!');
-    await expect(page).toHaveURL(/dashboard|home/); // adjust if needed
+    await expect(page).toHaveURL(/dashboard|home/); 
   });
 
   test('Invalid credentials show error', async ({ page }) => {
