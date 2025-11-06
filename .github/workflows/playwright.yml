@@ -32,27 +32,11 @@ jobs:
         run: npx playwright install chromium webkit --with-deps
 
       - name: Run Playwright tests (Chromium & WebKit)
-        run: npx playwright test --project=chromium --project=webkit --reporter=allure-playwright
+        run: npx playwright test --project=chromium --project=webkit --reporter=html
 
-      - name: Install Allure CLI
-        run: npm install -g allure-commandline
-
-      - name: Generate Allure report
+      - name: Zip Playwright HTML report
         if: always()
-        run: |
-          allure generate allure-results --clean -o allure-report || echo "Allure report generation failed"
-
-      - name: Zip Allure report
-        if: always()
-        run: zip -r allure-report.zip allure-report
-
-      - name: Upload Allure report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report
-          path: allure-report
-          retention-days: 30
+        run: zip -r playwright-report.zip playwright-report
 
       - name: Upload Playwright HTML report
         if: always()
@@ -62,7 +46,7 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      - name: Send Allure report via email
+      - name: Send Playwright report via email
         if: always()
         uses: dawidd6/action-send-mail@v3
         with:
@@ -70,9 +54,9 @@ jobs:
           server_port: 587
           username: ${{ secrets.OUTLOOK_USER }}
           password: ${{ secrets.OUTLOOK_PASS }}
-          subject: "Allure Report - Playwright Tests"
-          body: "Звіт Allure додається у вкладенні."
+          subject: "Playwright HTML Report - Tests"
+          body: "HTML-звіт Playwright додається у вкладенні."
           to: alex.rabchun@outlook.com
           from: ${{ secrets.OUTLOOK_USER }}
-          attachments: allure-report.zip
+          attachments: playwright-report.zip
 
